@@ -1,5 +1,3 @@
-duzentas=>200
-vinte=>20
-cem=>100
+três=>3
 dezesseis=>16
 dois mil e catorze=>2014

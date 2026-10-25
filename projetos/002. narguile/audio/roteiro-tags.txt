@@ -1,23 +1,25 @@
-[excited] A água do narguilé não limpa a fumaça. Ela só disfarça.
+[excited] O tabaco do narguilé não pega fogo. Quem queima é só o carvão.
 
-[curious] Quer ver como isso funciona por dentro?
+[curious] Então de onde vem tanta fumaça?
 
-[serious] Lá em cima fica o fornilho, com tabaco úmido de melaço e glicerina. Por cima, papel-alumínio furado e carvão em brasa.
+[serious] Lá em cima fica o fornilho, com tabaco úmido de melaço e glicerina. Por cima, papel-alumínio furado e o carvão em brasa, sem encostar no tabaco.
 
-[curious] Quando você puxa pela mangueira, a pressão dentro do vaso cai. O ar entra pelo carvão, esquenta o tabaco, e a fumaça desce pelo tubo central até o fundo da água.
+[curious] Quando você puxa pela mangueira, a pressão dentro do vaso cai. O ar passa pelo carvão, fica quente, atravessa os furos do alumínio e esquenta o tabaco.
 
-[serious] Ali ela borbulha, esfria e sobe para a mangueira. Fria e úmida, ela não arranha a garganta. E é aí que mora o truque.
+[serious] A glicerina vira vapor. É ela que faz aquela nuvem branca e grossa.
 
-[curious] Como não incomoda, você puxa mais fundo e por mais tempo. Uma sessão de uma hora tem cerca de duzentas tragadas. Um cigarro tem umas vinte.
+[curious] Esse vapor desce pelo tubo central, que fica mergulhado só uns três centímetros na água. Mais fundo que isso, fica pesado de puxar.
 
-[serious] A Organização Mundial da Saúde estima que, em uma hora, você inala a fumaça de cerca de cem cigarros.
+[serious] Lá embaixo ele borbulha, esfria e sobe para o espaço vazio do vaso. É daí que vem o barulho de bolha.
 
-[curious] E o carvão solta monóxido de carbono, um gás sem cheiro que a água não segura. Já são dezenas de casos de intoxicação, muitos com desmaio.
+[curious] Tudo depende da vedação. Se entra ar por uma borracha frouxa, a pressão não cai e não sai nada.
 
-[serious] E a mesma mangueira, passada de boca em boca, pode levar junto herpes e até tuberculose.
+[serious] E aquela bolinha de metal do lado? É a válvula de alívio. Você sopra, ela abre e a fumaça velha sai por ali.
 
-[curious] A lenda diz que um médico da corte da Índia, no século dezesseis, criou o narguilé para purificar a fumaça. A ciência mostrou o contrário.
+[curious] O nome vem do persa nargil, que quer dizer coco. Os primeiros vasos eram cascas de coco.
 
-[serious] E no Brasil, desde dois mil e catorze, ele é proibido em qualquer lugar fechado de uso coletivo.
+[serious] A versão mais contada diz que ele surgiu na Índia, no século dezesseis, na corte do imperador Akbar.
 
-[warmly] Salva aí e manda pra quem acha que a água limpa tudo.
+[curious] E no Brasil, desde dois mil e catorze, ele é proibido em qualquer lugar fechado de uso coletivo.
+
+[warmly] Salva aí e manda pra quem jurava que o tabaco pegava fogo.
