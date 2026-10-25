@@ -185,7 +185,7 @@ const Mundo: React.FC<{t: number; corte?: boolean; montagem?: Montagem; extra?: 
     <Entra t={t} em={T.akbar - 0.3} modo="cresce">
       <Palacio pos={[AGRA[0] + 0.1, AGRA[1], AGRA[2] + 0.07]} />
     </Entra>
-    <Entra t={t} em={T.brasil - 0.1} modo="cai" altura={0.7}>
+    <Entra t={t} em={T.brasil} modo="cresce" dur={0.8}>
       <Placa tema={tema} pos={PLACA.pos} rot={[0, -0.35, 0]} larg={PLACA.larg} alt={PLACA.alt} fundo={CORES.escuro} linhas={[{t: 'BRASIL', tam: 120, cor: tema.texto}, {t: '2014', tam: 260, cor: tema.acento}]} />
     </Entra>
     <Sala />
