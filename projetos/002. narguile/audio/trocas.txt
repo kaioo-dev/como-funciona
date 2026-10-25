@@ -1,0 +1,5 @@
+duzentas=>200
+vinte=>20
+cem=>100
+dezesseis=>16
+dois mil e catorze=>2014
