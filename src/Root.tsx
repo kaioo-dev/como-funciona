@@ -2,6 +2,7 @@ import React from 'react';
 import {Composition, Folder} from 'remotion';
 import {Capa} from './base/capa';
 import {FPS as FPS_001, Overbooking, QUADROS as QUADROS_001} from './videos/overbooking/Overbooking';
+import {FPS as FPS_002, Narguile, QUADROS as QUADROS_002} from './videos/narguile/Narguile';
 import {ExemploFisica, FPS as FPS_FIS, QUADROS as QUADROS_FIS} from './videos/exemplo-fisica/ExemploFisica';
 
 // Registro dos vídeos. Cada vídeo novo ganha uma pasta (Folder) com:
@@ -24,6 +25,11 @@ export const RemotionRoot: React.FC = () => (
         fps={30}
         durationInFrames={1}
       />
+    </Folder>
+    <Folder name="002-narguile">
+      <Composition id="Narguile" component={Narguile} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
+      <Composition id="NarguileGuia" component={Narguile} defaultProps={{guia: true}} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
+      <Composition id="NarguileLimpo" component={Narguile} defaultProps={{semInterface: true}} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
     </Folder>
     {/* v1.1: referência de física (andar, pular, cair, empilhar). Não é para postar. */}
     <Folder name="000-exemplo-fisica">
