@@ -2,11 +2,11 @@
 
 [warmly] Oferecimento: seu comércio aqui.
 
-[warmly] Sol entre nuvens: de quinze a vinte e três graus. Às seteh, dezesseis: casaco leve.
+[warmly] Sol entre nuvens: de quinze a vinte e três graus. Às sete, dezesseis: casaco leve.
 
 [warmly] Chuva pouco provável, no máximo trinta e nove por cento. Guarda-chuva pode ficar em casa.
 
-[serious] U V alto das onzeh às catorzeh, chegando a nove. À tarde, rajadas de trinta e dois quilômetros por hora. Qualidade do ar boa.
+[serious] U V alto das onze às catorze, chegando a nove. À tarde, rajadas de trinta e dois quilômetros por hora. Qualidade do ar boa.
 
 [calm] Maré alta na Babitonga à uma e vinte e um e às treze e quarenta e três, previsão aproximada.
 

@@ -62,6 +62,13 @@ def para_voz(texto, trocas):
 
     v = re.sub(r'R\$\s?(\d{1,3}(?:\.\d{3})*|\d+)(?:,(\d{2}))?', dinheiro, texto)
     v = re.sub(r'\b(\d{1,2})h(\d{2})\b', horas, v)
+
+    def hora_cheia(m):  # "às 7h" → "às sete"; "das 11h às 14h" → "das onze às catorze"
+        fala = extenso(int(m.group(1)), feminino=True)
+        trocas[fala] = m.group(0)
+        return fala
+
+    v = re.sub(r'\b(\d{1,2})h\b', hora_cheia, v)
     v = re.sub(r'\d{1,3}(?:\.\d{3})+(?:,\d+)?%?|\d+(?:,\d+)?%?', numero, v)
     v = re.sub(r'\bUV\b', 'U V', v)  # a sigla é lida letra por letra
     if 'km/h' in v:

@@ -1,11 +1,11 @@
 vinte e seis=>26
+sete=>7h
 quinze=>15
 vinte e três=>23
-sete=>7
 dezesseis=>16
 trinta e nove por cento=>39%
-onze=>11
-catorze=>14
+onze=>11h
+catorze=>14h
 nove=>9
 trinta e dois=>32
 quilômetros por hora=>km/h
