@@ -5,12 +5,21 @@ import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeomet
 import {useThree} from '@react-three/fiber';
 import {Bloom, DepthOfField, EffectComposer, N8AO, Noise, SMAA, ToneMapping, Vignette} from '@react-three/postprocessing';
 import {BlendFunction, ToneMappingMode} from 'postprocessing';
-import {continueRender, delayRender, useCurrentFrame} from 'remotion';
+import {continueRender, delayRender, getInputProps, useCurrentFrame} from 'remotion';
 import type {Tema} from './tema';
 import {Material} from './materiais';
 import {QA_LIGADO, qaPe, useQuadro} from './qa';
-// na checagem automática a imagem só serve para medir pisca: sem desfoque, oclusão e brilho (bem mais rápido)
-const LEVE = QA_LIGADO;
+// na checagem automática a imagem só serve para medir pisca: sem desfoque, oclusão e brilho (bem mais rápido).
+// QUALIDADE=previa (scripts/render.mjs) liga o mesmo modo leve para ver ritmo e enquadramento depressa.
+const LEVE =
+  QA_LIGADO ||
+  (() => {
+    try {
+      return Boolean((getInputProps() as {leve?: boolean}).leve);
+    } catch {
+      return false;
+    }
+  })();
 // fundo claro (estilos 'creme'): o brilho só pega luz de verdade (emissivo acima de 1) e a vinheta é leve, senão a imagem
 // fica lavada, com cara de neblina
 const CLARO = TEMA.nome === 'creme';
