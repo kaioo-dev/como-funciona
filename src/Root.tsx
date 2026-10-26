@@ -30,6 +30,15 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="Narguile" component={Narguile} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
       <Composition id="NarguileGuia" component={Narguile} defaultProps={{guia: true}} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
       <Composition id="NarguileLimpo" component={Narguile} defaultProps={{semInterface: true}} width={1080} height={1920} fps={FPS_002} durationInFrames={QUADROS_002} />
+      <Composition
+        id="CapaNarguile"
+        component={Capa}
+        defaultProps={{fundo: '002. narguile/capa/fundo-limpo-escuro.jpg', tema: 'NARGUILÉ', linhas: ['O tabaco', 'não pega', 'fogo.'], destaque: 1, desce: 140}}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={1}
+      />
     </Folder>
     {/* v1.1: referência de física (andar, pular, cair, empilhar). Não é para postar. */}
     <Folder name="000-exemplo-fisica">
