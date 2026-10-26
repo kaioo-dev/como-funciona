@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import {ThreeCanvas} from '@remotion/three';
 import {AbsoluteFill, Audio, Easing, getInputProps, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {AcabamentoCinema, Camera, Palco, type Cam, type Foco, type V3} from './pecas';
-import {QaCena, QA_LIGADO, qaLog} from './qa';
+import {QaCena, QA_LIGADO, qaLog, useQuadro} from './qa';
 import {focoAuto, W, H} from './camera';
 import {TEMA, SERIE} from './ativo';
 import {GuiaReels} from './reels';
@@ -156,7 +156,7 @@ export const VideoKit: React.FC<{
   semInterface?: boolean;
   semCortes?: boolean;
 }> = ({pasta, assunto, palavras, audioSeg, cenas, estados, sons = [], narracao = 'audio/narracao-norm.wav', trilha = 'sfx/trilha.wav', volumeTrilha = 0.12, guia, semInterface, semCortes}) => {
-  const frame = useCurrentFrame();
+  const frame = useQuadro(); // = useCurrentFrame() fora da checagem
   const {fps, durationInFrames} = useVideoConfig();
   const t = frame / fps;
   const Legenda = useMemo(() => criaLegenda(palavras), [palavras]);

@@ -72,10 +72,18 @@ if (trecho) {
   q1 = Math.min(q1, Math.round(b * fps));
 }
 const browser = await openBrowser('chrome', {browserExecutable, chromiumOptions});
-// passadas de renderização: [deslocamento, a cada N quadros]
+// quadros que a checagem quer ver: [deslocamento, a cada N quadros]. Rápido = pares seguidos a cada 1/3 s (pegam
+// pisca e movimento) + rajadas de 5 quadros a cada 2 s. Completo = todos.
+// v1.3: o Remotion não renderiza quadros soltos (o everyNthFrame só pega múltiplos exatos: as passadas com deslocamento
+// repetiam a 1ª e a checagem olhava ~40% do vídeo, sem nenhum par de quadros seguidos). Agora renderizamos uma
+// sequência contínua 0..N-1 e o vídeo traduz cada quadro para o quadro real da lista (useQuadro, em src/base/qa.tsx).
 const PASSADAS = COMPLETO ? [[0, PASSO]] : [[0, 10], [1, 10], [2, 60], [3, 60], [4, 60]];
-const nQuadros = ([d, n]) => (q0 + d > q1 ? 0 : Math.floor((q1 - q0 - d) / n) + 1);
-const total = PASSADAS.reduce((s, x) => s + nQuadros(x), 0);
+const LISTA = [...new Set(PASSADAS.flatMap(([d, n]) => {
+  const out = [];
+  for (let q = q0 + d; q <= q1; q += n) out.push(q);
+  return out;
+}))].sort((a, b) => a - b);
+const total = LISTA.length;
 const abas = Math.max(1, Math.min(4, Math.floor(os.cpus().length / 2)));
 console.log(`Checando ${total} quadros de ${((q1 - q0 + 1) / fps).toFixed(1)} s (modo ${COMPLETO ? 'completo' : 'rápido'}, ${abas} abas)…`);
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'qa-quadros-'));
@@ -99,57 +107,42 @@ const guarda = (log) => {
   }
 };
 let ultimo = -1;
-let feitos = 0;
-for (const [desloc, cada] of PASSADAS) {
-  if (q0 + desloc > q1) continue;
-  const saida = path.join(tmp, `p${desloc}`);
-  fs.mkdirSync(saida);
-  let antes = 0;
-  await renderFrames({
-    serveUrl,
-    composition,
-    inputProps,
-    frameRange: [q0 + desloc, q1],
-    everyNthFrame: cada,
-    outputDir: saida,
-    imageFormat: 'jpeg',
-    jpegQuality: 50,
-    scale: 0.25,
-    // na checagem não há pós-processamento (ver AcabamentoCinema), então várias abas podem renderizar ao mesmo tempo
-    concurrency: abas,
-    browserExecutable,
-    chromiumOptions,
-    puppeteerInstance: browser,
-    onBrowserLog: guarda,
-    logLevel: 'error',
-    timeoutInMilliseconds: 120000,
-    onStart: () => {},
-    onFrameUpdate: (n) => {
-      feitos += n - antes;
-      antes = n;
-      const p = Math.floor((feitos / total) * 10) * 10;
-      if (p !== ultimo) {
-        ultimo = p;
-        process.stdout.write(`  ${p}%\n`);
-      }
-    },
-  });
-}
+const saidaQuadros = path.join(tmp, 'q');
+fs.mkdirSync(saidaQuadros);
+await renderFrames({
+  serveUrl,
+  composition,
+  inputProps: {...inputProps, qaQuadros: LISTA},
+  frameRange: [0, total - 1],
+  outputDir: saidaQuadros,
+  imageFormat: 'jpeg',
+  jpegQuality: 50,
+  scale: 0.25,
+  // na checagem não há pós-processamento (ver AcabamentoCinema), então várias abas podem renderizar ao mesmo tempo
+  concurrency: abas,
+  browserExecutable,
+  chromiumOptions,
+  puppeteerInstance: browser,
+  onBrowserLog: guarda,
+  logLevel: 'error',
+  timeoutInMilliseconds: 120000,
+  onStart: () => {},
+  onFrameUpdate: (n) => {
+    const p = Math.floor((n / total) * 10) * 10;
+    if (p !== ultimo) {
+      ultimo = p;
+      process.stdout.write(`  ${p}%\n`);
+    }
+  },
+});
 await browser.close({silent: true});
 
 if (process.env.QA_DUMP) fs.writeFileSync(process.env.QA_DUMP, JSON.stringify([...cenas.values()]));
 // ---------- brilho por região (9 × 16 células) de cada quadro ----------
 const arquivos = []; // {arq, q}
-for (const [desloc, cada] of PASSADAS) {
-  const dir = path.join(tmp, `p${desloc}`);
-  if (!fs.existsSync(dir)) continue;
-  const fs2 = fs.readdirSync(dir).filter((f) => /\.jpe?g$/.test(f)).sort();
-  // o Remotion numera pelo quadro (quando everyNthFrame = 1) ou pela ordem: os dois casos dão o mesmo quadro aqui
-  fs2.forEach((f, k) => {
-    const n = Number((f.match(/(\d+)\.jpe?g$/) ?? [])[1]);
-    const q = cada === 1 ? n : q0 + desloc + k * cada;
-    arquivos.push({arq: path.join(dir, f), q});
-  });
+for (const f of fs.readdirSync(saidaQuadros).filter((x) => /\.jpe?g$/.test(x)).sort()) {
+  const k = Number((f.match(/(\d+)\.jpe?g$/) ?? [])[1]); // quadro renderizado k = quadro real LISTA[k]
+  if (Number.isFinite(k) && k < LISTA.length) arquivos.push({arq: path.join(saidaQuadros, f), q: LISTA[k]});
 }
 const lum = new Map(); // quadro -> Uint8Array(144)
 if (arquivos.length) {

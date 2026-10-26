@@ -8,7 +8,7 @@ import {BlendFunction, ToneMappingMode} from 'postprocessing';
 import {continueRender, delayRender, useCurrentFrame} from 'remotion';
 import type {Tema} from './tema';
 import {Material} from './materiais';
-import {QA_LIGADO, qaPe} from './qa';
+import {QA_LIGADO, qaPe, useQuadro} from './qa';
 // na checagem automática a imagem só serve para medir pisca: sem desfoque, oclusão e brilho (bem mais rápido)
 const LEVE = QA_LIGADO;
 // fundo claro (estilos 'creme'): o brilho só pega luz de verdade (emissivo acima de 1) e a vinheta é leve, senão a imagem
@@ -520,7 +520,7 @@ export const Boneco: React.FC<{tema: Tema; pos: V3; rotY?: number; pose?: Pose; 
   const refPeD = useRef<THREE.Mesh>(null);
   const auto = useId();
   const nome = id ?? `boneco${auto}`;
-  const q = useCurrentFrame();
+  const q = useQuadro();
   useLayoutEffect(() => {
     if (!QA_LIGADO) return;
     const noAr = Boolean(pose.noAr);

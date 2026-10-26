@@ -1,11 +1,11 @@
 import React from 'react';
 import * as THREE from 'three';
 import {ThreeCanvas} from '@remotion/three';
-import {AbsoluteFill, useCurrentFrame} from 'remotion';
+import {AbsoluteFill} from 'remotion';
 import {AcabamentoCinema, Boneco, Caixa, Camera, Palco, Particulas, cinematizar, type Cam, type Foco, type V3} from '../../base/pecas';
 import {Material} from '../../base/materiais';
 import {andar, pular, queda, separar, topo, type Superficie} from '../../base/movimento';
-import {Solido} from '../../base/qa';
+import {Solido, useQuadro} from '../../base/qa';
 import {MEU_ESTILO} from '../../estilo';
 
 // Exemplo de física do kit (v1.1). Sem narração: é a referência de COMO mover as coisas.
@@ -54,7 +54,7 @@ const Canvas: React.FC<{cam: Cam; foco: Foco; children: React.ReactNode}> = ({ca
 );
 
 export const ExemploFisica: React.FC = () => {
-  const q = useCurrentFrame();
+  const q = useQuadro();
   const t = q / FPS;
 
   // 1) andar (posição, rotação e pose saem prontas)

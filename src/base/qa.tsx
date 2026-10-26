@@ -21,6 +21,23 @@ export const QA_LIGADO = (() => {
   }
 })();
 
+// Na checagem, o scripts/qa.mjs renderiza uma sequência CONTÍNUA de quadros (0, 1, 2…) e manda junto a lista dos quadros
+// reais que quer ver (pares seguidos e rajadas espalhados pelo vídeo). O Remotion não sabe pular para quadros soltos
+// (o everyNthFrame só pega múltiplos exatos), então o vídeo traduz: quadro renderizado k → quadro real qaQuadros[k].
+const QA_QUADROS: number[] | null = (() => {
+  try {
+    const l = (getInputProps() as {qaQuadros?: number[]}).qaQuadros;
+    return Array.isArray(l) && l.length ? l : null;
+  } catch {
+    return null;
+  }
+})();
+// Use no lugar de useCurrentFrame() em tudo que anima (fora da checagem é exatamente o mesmo quadro).
+export const useQuadro = () => {
+  const f = useCurrentFrame();
+  return QA_QUADROS ? QA_QUADROS[Math.min(f, QA_QUADROS.length - 1)] : f;
+};
+
 const n3 = (x: number) => Math.round(x * 1000) / 1000;
 const r3 = (v: THREE.Vector3) => [n3(v.x), n3(v.y), n3(v.z)];
 export const qaLog = (dado: Record<string, unknown>) => {
@@ -113,7 +130,7 @@ const chaveDe = (o: THREE.Object3D, raiz: THREE.Object3D) => {
 export const QaCena: React.FC<{cam: Cam}> = ({cam}) => {
   const scene = useThree((st) => st.scene);
   const camera = useThree((st) => st.camera) as THREE.PerspectiveCamera;
-  const q = useCurrentFrame();
+  const q = useQuadro();
   const feito = useRef(-1);
   useLayoutEffect(() => {
     if (!QA_LIGADO || feito.current === q) return;
