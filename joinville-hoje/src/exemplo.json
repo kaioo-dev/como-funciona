@@ -1,0 +1,254 @@
+{
+ "data": "2026-10-26",
+ "diaSemana": "SEGUNDA",
+ "blocos": [
+  {
+   "tipo": "abertura",
+   "fala": "Bom dia, Joinville! Segunda-feira, 26 de outubro. Veja o que muda no seu dia."
+  },
+  {
+   "tipo": "patrocinio",
+   "nome": "Seu comércio aqui",
+   "frase": "Anuncie no Joinville Hoje",
+   "fala": "O Joinville Hoje é oferecido por: seu comércio aqui. Anuncie com a gente."
+  },
+  {
+   "tipo": "tempo",
+   "fala": "No tempo, mínima de 15 e máxima de 23 graus. Pouca chance de chuva: manhã, tarde e noite com tempo firme. Índice UV muito alto: use protetor.",
+   "dados": {
+    "fonte": "Open-Meteo",
+    "min": 15,
+    "max": 23,
+    "chuva_mm": 1.4,
+    "chance_max": 67,
+    "uv_max": 8.5,
+    "nascer": "05:30",
+    "por": "18:28",
+    "periodos": [
+     {
+      "nome": "MANHÃ",
+      "chuva_mm": 0,
+      "chance": 39,
+      "temp": 18
+     },
+     {
+      "nome": "TARDE",
+      "chuva_mm": 0.3,
+      "chance": 29,
+      "temp": 22
+     },
+     {
+      "nome": "NOITE",
+      "chuva_mm": 0,
+      "chance": 35,
+      "temp": 17
+     }
+    ]
+   }
+  },
+  {
+   "tipo": "mare",
+   "fala": "Na Baía da Babitonga, maré alta à 1h21 e às 13h43, pela previsão aproximada.",
+   "dados": {
+    "fonte": "Open-Meteo Marine (modelo, aproximado). Oficial: tábua da Marinha, Porto de São Francisco do Sul",
+    "unidade": "m em relação ao nível médio do mar",
+    "altas": [
+     {
+      "hora": "01:21",
+      "nivel": 1.01
+     },
+     {
+      "hora": "13:43",
+      "nivel": 0.77
+     }
+    ],
+    "baixas": [
+     {
+      "hora": "07:52",
+      "nivel": -0.21
+     },
+     {
+      "hora": "19:30",
+      "nivel": -0.27
+     }
+    ],
+    "serie": [
+     {
+      "hora": "00:00",
+      "nivel": 0.84
+     },
+     {
+      "hora": "01:00",
+      "nivel": 1.0
+     },
+     {
+      "hora": "02:00",
+      "nivel": 0.97
+     },
+     {
+      "hora": "03:00",
+      "nivel": 0.76
+     },
+     {
+      "hora": "04:00",
+      "nivel": 0.44
+     },
+     {
+      "hora": "05:00",
+      "nivel": 0.14
+     },
+     {
+      "hora": "06:00",
+      "nivel": -0.08
+     },
+     {
+      "hora": "07:00",
+      "nivel": -0.18
+     },
+     {
+      "hora": "08:00",
+      "nivel": -0.21
+     },
+     {
+      "hora": "09:00",
+      "nivel": -0.16
+     },
+     {
+      "hora": "10:00",
+      "nivel": 0.0
+     },
+     {
+      "hora": "11:00",
+      "nivel": 0.26
+     },
+     {
+      "hora": "12:00",
+      "nivel": 0.53
+     },
+     {
+      "hora": "13:00",
+      "nivel": 0.72
+     },
+     {
+      "hora": "14:00",
+      "nivel": 0.76
+     },
+     {
+      "hora": "15:00",
+      "nivel": 0.61
+     },
+     {
+      "hora": "16:00",
+      "nivel": 0.33
+     },
+     {
+      "hora": "17:00",
+      "nivel": 0.03
+     },
+     {
+      "hora": "18:00",
+      "nivel": -0.18
+     },
+     {
+      "hora": "19:00",
+      "nivel": -0.26
+     },
+     {
+      "hora": "20:00",
+      "nivel": -0.26
+     },
+     {
+      "hora": "21:00",
+      "nivel": -0.21
+     },
+     {
+      "hora": "22:00",
+      "nivel": -0.1
+     },
+     {
+      "hora": "23:00",
+      "nivel": 0.13
+     }
+    ]
+   }
+  },
+  {
+   "tipo": "lista",
+   "alerta": true,
+   "rotulo": "EXEMPLO FICTÍCIO · ALERTA",
+   "titulo": "Exemplo de alerta de alagamento",
+   "itens": [
+    {
+     "texto": "Rua de exemplo",
+     "bairro": "Centro",
+     "detalhe": "exemplo"
+    },
+    {
+     "texto": "Rua de exemplo",
+     "bairro": "Bucarein",
+     "detalhe": "exemplo"
+    },
+    {
+     "texto": "Rua de exemplo",
+     "bairro": "Itaum",
+     "detalhe": "exemplo"
+    }
+   ],
+   "fonte": "exemplo (não publicar)",
+   "fala": "Exemplo de alerta, só para mostrar o mapa: Centro, Bucarein e Itaum."
+  },
+  {
+   "tipo": "combustivel",
+   "fala": "Combustível em Joinville: gasolina a R$ 6,02 na média, 4 centavos mais barata que na semana anterior. Etanol a R$ 4,20.",
+   "dados": {
+    "semana": [
+     "2026-10-11",
+     "2026-10-17"
+    ],
+    "itens": [
+     {
+      "nome": "Gasolina",
+      "medio": 6.02,
+      "min": 5.57,
+      "max": 6.29,
+      "postos": 19,
+      "unidade": "R$/l",
+      "variacao": -0.04
+     },
+     {
+      "nome": "Etanol",
+      "medio": 4.2,
+      "min": 3.88,
+      "max": 4.49,
+      "postos": 15,
+      "unidade": "R$/l",
+      "variacao": 0.01
+     },
+     {
+      "nome": "Diesel S10",
+      "medio": 7.14,
+      "min": 6.97,
+      "max": 7.49,
+      "postos": 13,
+      "unidade": "R$/l",
+      "variacao": 0.0
+     },
+     {
+      "nome": "Gás (13 kg)",
+      "medio": 122.4,
+      "min": 115.0,
+      "max": 136.0,
+      "postos": 10,
+      "unidade": "R$/13kg",
+      "variacao": 0.0
+     }
+    ],
+    "fonte": "ANP — Levantamento de Preços de Combustíveis"
+   }
+  },
+  {
+   "tipo": "encerramento",
+   "fala": "Salva e manda pra quem sai cedo de casa. Até amanhã!"
+  }
+ ]
+}

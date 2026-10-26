@@ -1,0 +1,8 @@
+vinte e seis=>26
+quinze=>15
+vinte e três=>23
+uma e vinte e um=>1h21
+treze e quarenta e três=>13h43
+seis reais e dois centavos=>R$ 6,02
+quatro reais e vinte centavos=>R$ 4,20
+quatro=>4
