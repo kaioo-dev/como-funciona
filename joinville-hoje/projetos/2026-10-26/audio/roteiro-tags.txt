@@ -1,11 +1,21 @@
-[excited] Bom dia, Joinville! Segunda-feira, vinte e seis de outubro. Veja o que muda no seu dia.
+[excited] Bom dia, Joinville! Segunda, vinte e seis de outubro: seu dia em um minuto.
 
-[warmly] O Joinville Hoje é oferecido por: seu comércio aqui. Anuncie com a gente.
+[warmly] Oferecimento: seu comércio aqui.
 
-[warmly] No tempo, mínima de quinze e máxima de vinte e três graus. Pouca chance de chuva: manhã, tarde e noite com tempo firme. Índice U V muito alto: use protetor.
+[warmly] Sol entre nuvens: de quinze a vinte e três graus. Às seteh, dezesseis: casaco leve.
 
-[calm] Na Baía da Babitonga, maré alta à uma e vinte e um e às treze e quarenta e três, pela previsão aproximada.
+[warmly] Chuva pouco provável, no máximo trinta e nove por cento. Guarda-chuva pode ficar em casa.
 
-[serious] Combustível em Joinville: gasolina a seis reais e dois centavos na média, quatro centavos mais barata que na semana anterior. Etanol a quatro reais e vinte centavos.
+[serious] U V alto das onzeh às catorzeh, chegando a nove. À tarde, rajadas de trinta e dois quilômetros por hora. Qualidade do ar boa.
 
-[warmly] Salva e manda pra quem sai cedo de casa. Até amanhã!
+[calm] Maré alta na Babitonga à uma e vinte e um e às treze e quarenta e três, previsão aproximada.
+
+[serious] Gasolina a seis reais e dois centavos na média; etanol a quatro reais e vinte centavos. Etanol custa sessenta e nove vírgula oito por cento da gasolina: compensa, por pouco.
+
+[serious] Gasolina mais barata pesquisada: cinco reais e cinquenta e sete centavos, no Jardim Paraíso. Mais cara: seis reais e vinte e nove centavos, no Iririú. Num tanque de cinquenta litros, trinta e seis reais de diferença.
+
+[curious] Curiosidade: existe uma Ilha Joinville na Antártida. Ganhou o nome em mil oitocentos e trinta e oito, antes da cidade, fundada em mil oitocentos e cinquenta e um. Mesmo príncipe francês nas duas.
+
+[calm] Amanhã: de quinze a vinte e um graus e setenta e sete por cento de chance de chuva, mas fraca.
+
+[warmly] Salva e manda pra quem sai cedo de casa!

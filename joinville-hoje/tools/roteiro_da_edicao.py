@@ -51,7 +51,7 @@ def para_voz(texto, trocas):
 
     def numero(m):
         tok = m.group(0)
-        inteiro, _, dec = tok.partition(',')
+        inteiro, _, dec = tok.rstrip('%').partition(',')
         fala = extenso(int(inteiro.replace('.', '')))
         if dec:
             fala += ' vírgula ' + extenso(int(dec))
