@@ -3,6 +3,7 @@ import {Composition, Folder} from 'remotion';
 import {Capa} from './base/capa';
 import {FPS as FPS_001, Overbooking, QUADROS as QUADROS_001} from './videos/overbooking/Overbooking';
 import {FPS as FPS_002, Narguile, QUADROS as QUADROS_002} from './videos/narguile/Narguile';
+import {EstudioJacare, FPS as FPS_JAC, QUADROS as QUADROS_JAC} from './videos/jacare/Estudio';
 import {ExemploFisica, FPS as FPS_FIS, QUADROS as QUADROS_FIS} from './videos/exemplo-fisica/ExemploFisica';
 
 // Registro dos vídeos. Cada vídeo novo ganha uma pasta (Folder) com:
@@ -39,6 +40,9 @@ export const RemotionRoot: React.FC = () => (
         fps={30}
         durationInFrames={1}
       />
+    </Folder>
+    <Folder name="003-jacare">
+      <Composition id="EstudioJacare" component={EstudioJacare} width={1080} height={1920} fps={FPS_JAC} durationInFrames={QUADROS_JAC} />
     </Folder>
     {/* v1.1: referência de física (andar, pular, cair, empilhar). Não é para postar. */}
     <Folder name="000-exemplo-fisica">
