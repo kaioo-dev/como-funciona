@@ -1,22 +1,25 @@
 {
  "data": "2026-10-26",
  "diaSemana": "SEGUNDA",
+ "sons": true,
  "blocos": [
   {
    "tipo": "abertura",
-   "fala": "Bom dia, Joinville! Segunda-feira, 26 de outubro. Veja o que muda no seu dia."
+   "fala": "Bom dia, Joinville! Segunda, 26 de outubro: seu dia em um minuto."
   },
   {
    "tipo": "patrocinio",
    "nome": "Seu comércio aqui",
-   "frase": "Anuncie no Joinville Hoje",
-   "fala": "O Joinville Hoje é oferecido por: seu comércio aqui. Anuncie com a gente."
+   "frase": "Anuncie no boletim que Joinville vê todo dia",
+   "fala": "Oferecimento: seu comércio aqui."
   },
   {
-   "tipo": "tempo",
-   "fala": "No tempo, mínima de 15 e máxima de 23 graus. Pouca chance de chuva: manhã, tarde e noite com tempo firme. Índice UV muito alto: use protetor.",
+   "tipo": "resumo",
+   "manchete": "15° → 23°",
+   "fala": "Sol entre nuvens: de 15 a 23 graus. Às 7h, 16: casaco leve.",
    "dados": {
     "fonte": "Open-Meteo",
+    "condicao": "sol entre nuvens",
     "min": 15,
     "max": 23,
     "chuva_mm": 1.4,
@@ -43,12 +46,696 @@
       "chance": 35,
       "temp": 17
      }
-    ]
+    ],
+    "horas": [
+     {
+      "hora": "06:00",
+      "temp": 14.8,
+      "sensacao": 15.5,
+      "chance": 39,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 11,
+      "umidade": 99
+     },
+     {
+      "hora": "07:00",
+      "temp": 15.9,
+      "sensacao": 16.7,
+      "chance": 31,
+      "chuva_mm": 0,
+      "uv": 0.8,
+      "rajada": 16,
+      "umidade": 97
+     },
+     {
+      "hora": "08:00",
+      "temp": 17.8,
+      "sensacao": 18.1,
+      "chance": 21,
+      "chuva_mm": 0,
+      "uv": 2.2,
+      "rajada": 19,
+      "umidade": 79
+     },
+     {
+      "hora": "09:00",
+      "temp": 19.8,
+      "sensacao": 19.3,
+      "chance": 14,
+      "chuva_mm": 0,
+      "uv": 3.9,
+      "rajada": 25,
+      "umidade": 61
+     },
+     {
+      "hora": "10:00",
+      "temp": 20.8,
+      "sensacao": 21.1,
+      "chance": 13,
+      "chuva_mm": 0,
+      "uv": 4.7,
+      "rajada": 27,
+      "umidade": 56
+     },
+     {
+      "hora": "11:00",
+      "temp": 21.9,
+      "sensacao": 23.2,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 6.4,
+      "rajada": 27,
+      "umidade": 52
+     },
+     {
+      "hora": "12:00",
+      "temp": 22.6,
+      "sensacao": 23.9,
+      "chance": 18,
+      "chuva_mm": 0,
+      "uv": 8.5,
+      "rajada": 24,
+      "umidade": 49
+     },
+     {
+      "hora": "13:00",
+      "temp": 22.8,
+      "sensacao": 24.2,
+      "chance": 22,
+      "chuva_mm": 0.1,
+      "uv": 8.4,
+      "rajada": 20,
+      "umidade": 48
+     },
+     {
+      "hora": "14:00",
+      "temp": 23.0,
+      "sensacao": 23.5,
+      "chance": 27,
+      "chuva_mm": 0,
+      "uv": 6.3,
+      "rajada": 25,
+      "umidade": 47
+     },
+     {
+      "hora": "15:00",
+      "temp": 22.0,
+      "sensacao": 21.6,
+      "chance": 29,
+      "chuva_mm": 0,
+      "uv": 4.8,
+      "rajada": 31,
+      "umidade": 53
+     },
+     {
+      "hora": "16:00",
+      "temp": 21.0,
+      "sensacao": 19.9,
+      "chance": 28,
+      "chuva_mm": 0.1,
+      "uv": 3.0,
+      "rajada": 30,
+      "umidade": 58
+     },
+     {
+      "hora": "17:00",
+      "temp": 19.6,
+      "sensacao": 18.7,
+      "chance": 24,
+      "chuva_mm": 0.1,
+      "uv": 1.1,
+      "rajada": 32,
+      "umidade": 69
+     },
+     {
+      "hora": "18:00",
+      "temp": 18.4,
+      "sensacao": 17.6,
+      "chance": 20,
+      "chuva_mm": 0,
+      "uv": 0.5,
+      "rajada": 31,
+      "umidade": 73
+     },
+     {
+      "hora": "19:00",
+      "temp": 17.4,
+      "sensacao": 17.3,
+      "chance": 12,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 25,
+      "umidade": 78
+     },
+     {
+      "hora": "20:00",
+      "temp": 17.6,
+      "sensacao": 17.9,
+      "chance": 4,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 13,
+      "umidade": 77
+     },
+     {
+      "hora": "21:00",
+      "temp": 17.4,
+      "sensacao": 17.7,
+      "chance": 2,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 12,
+      "umidade": 78
+     },
+     {
+      "hora": "22:00",
+      "temp": 17.0,
+      "sensacao": 17.0,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 80
+     },
+     {
+      "hora": "23:00",
+      "temp": 16.5,
+      "sensacao": 16.6,
+      "chance": 35,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 82
+     }
+    ],
+    "uv_alto": [
+     "11:00",
+     "14:00"
+    ],
+    "chuva_pico": {
+     "hora": "06:00",
+     "chance": 39
+    },
+    "guarda_chuva": false,
+    "rajada_max": {
+     "hora": "17:00",
+     "kmh": 32
+    },
+    "amanha": {
+     "condicao": "garoa",
+     "min": 15,
+     "max": 21,
+     "chance_max": 77,
+     "chuva_mm": 0.2
+    }
+   }
+  },
+  {
+   "tipo": "hora",
+   "manchete": "SEM GUARDA-CHUVA",
+   "fala": "Chuva pouco provável, no máximo 39%. Guarda-chuva pode ficar em casa.",
+   "dados": {
+    "fonte": "Open-Meteo",
+    "condicao": "sol entre nuvens",
+    "min": 15,
+    "max": 23,
+    "chuva_mm": 1.4,
+    "chance_max": 67,
+    "uv_max": 8.5,
+    "nascer": "05:30",
+    "por": "18:28",
+    "periodos": [
+     {
+      "nome": "MANHÃ",
+      "chuva_mm": 0,
+      "chance": 39,
+      "temp": 18
+     },
+     {
+      "nome": "TARDE",
+      "chuva_mm": 0.3,
+      "chance": 29,
+      "temp": 22
+     },
+     {
+      "nome": "NOITE",
+      "chuva_mm": 0,
+      "chance": 35,
+      "temp": 17
+     }
+    ],
+    "horas": [
+     {
+      "hora": "06:00",
+      "temp": 14.8,
+      "sensacao": 15.5,
+      "chance": 39,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 11,
+      "umidade": 99
+     },
+     {
+      "hora": "07:00",
+      "temp": 15.9,
+      "sensacao": 16.7,
+      "chance": 31,
+      "chuva_mm": 0,
+      "uv": 0.8,
+      "rajada": 16,
+      "umidade": 97
+     },
+     {
+      "hora": "08:00",
+      "temp": 17.8,
+      "sensacao": 18.1,
+      "chance": 21,
+      "chuva_mm": 0,
+      "uv": 2.2,
+      "rajada": 19,
+      "umidade": 79
+     },
+     {
+      "hora": "09:00",
+      "temp": 19.8,
+      "sensacao": 19.3,
+      "chance": 14,
+      "chuva_mm": 0,
+      "uv": 3.9,
+      "rajada": 25,
+      "umidade": 61
+     },
+     {
+      "hora": "10:00",
+      "temp": 20.8,
+      "sensacao": 21.1,
+      "chance": 13,
+      "chuva_mm": 0,
+      "uv": 4.7,
+      "rajada": 27,
+      "umidade": 56
+     },
+     {
+      "hora": "11:00",
+      "temp": 21.9,
+      "sensacao": 23.2,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 6.4,
+      "rajada": 27,
+      "umidade": 52
+     },
+     {
+      "hora": "12:00",
+      "temp": 22.6,
+      "sensacao": 23.9,
+      "chance": 18,
+      "chuva_mm": 0,
+      "uv": 8.5,
+      "rajada": 24,
+      "umidade": 49
+     },
+     {
+      "hora": "13:00",
+      "temp": 22.8,
+      "sensacao": 24.2,
+      "chance": 22,
+      "chuva_mm": 0.1,
+      "uv": 8.4,
+      "rajada": 20,
+      "umidade": 48
+     },
+     {
+      "hora": "14:00",
+      "temp": 23.0,
+      "sensacao": 23.5,
+      "chance": 27,
+      "chuva_mm": 0,
+      "uv": 6.3,
+      "rajada": 25,
+      "umidade": 47
+     },
+     {
+      "hora": "15:00",
+      "temp": 22.0,
+      "sensacao": 21.6,
+      "chance": 29,
+      "chuva_mm": 0,
+      "uv": 4.8,
+      "rajada": 31,
+      "umidade": 53
+     },
+     {
+      "hora": "16:00",
+      "temp": 21.0,
+      "sensacao": 19.9,
+      "chance": 28,
+      "chuva_mm": 0.1,
+      "uv": 3.0,
+      "rajada": 30,
+      "umidade": 58
+     },
+     {
+      "hora": "17:00",
+      "temp": 19.6,
+      "sensacao": 18.7,
+      "chance": 24,
+      "chuva_mm": 0.1,
+      "uv": 1.1,
+      "rajada": 32,
+      "umidade": 69
+     },
+     {
+      "hora": "18:00",
+      "temp": 18.4,
+      "sensacao": 17.6,
+      "chance": 20,
+      "chuva_mm": 0,
+      "uv": 0.5,
+      "rajada": 31,
+      "umidade": 73
+     },
+     {
+      "hora": "19:00",
+      "temp": 17.4,
+      "sensacao": 17.3,
+      "chance": 12,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 25,
+      "umidade": 78
+     },
+     {
+      "hora": "20:00",
+      "temp": 17.6,
+      "sensacao": 17.9,
+      "chance": 4,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 13,
+      "umidade": 77
+     },
+     {
+      "hora": "21:00",
+      "temp": 17.4,
+      "sensacao": 17.7,
+      "chance": 2,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 12,
+      "umidade": 78
+     },
+     {
+      "hora": "22:00",
+      "temp": 17.0,
+      "sensacao": 17.0,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 80
+     },
+     {
+      "hora": "23:00",
+      "temp": 16.5,
+      "sensacao": 16.6,
+      "chance": 35,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 82
+     }
+    ],
+    "uv_alto": [
+     "11:00",
+     "14:00"
+    ],
+    "chuva_pico": {
+     "hora": "06:00",
+     "chance": 39
+    },
+    "guarda_chuva": false,
+    "rajada_max": {
+     "hora": "17:00",
+     "kmh": 32
+    },
+    "amanha": {
+     "condicao": "garoa",
+     "min": 15,
+     "max": 21,
+     "chance_max": 77,
+     "chuva_mm": 0.2
+    }
+   }
+  },
+  {
+   "tipo": "sol",
+   "manchete": "UV 9 · PROTETOR",
+   "fala": "UV alto das 11h às 14h, chegando a 9. À tarde, rajadas de 32 km/h. Qualidade do ar boa.",
+   "dados": {
+    "fonte": "Open-Meteo",
+    "condicao": "sol entre nuvens",
+    "min": 15,
+    "max": 23,
+    "chuva_mm": 1.4,
+    "chance_max": 67,
+    "uv_max": 8.5,
+    "nascer": "05:30",
+    "por": "18:28",
+    "periodos": [
+     {
+      "nome": "MANHÃ",
+      "chuva_mm": 0,
+      "chance": 39,
+      "temp": 18
+     },
+     {
+      "nome": "TARDE",
+      "chuva_mm": 0.3,
+      "chance": 29,
+      "temp": 22
+     },
+     {
+      "nome": "NOITE",
+      "chuva_mm": 0,
+      "chance": 35,
+      "temp": 17
+     }
+    ],
+    "horas": [
+     {
+      "hora": "06:00",
+      "temp": 14.8,
+      "sensacao": 15.5,
+      "chance": 39,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 11,
+      "umidade": 99
+     },
+     {
+      "hora": "07:00",
+      "temp": 15.9,
+      "sensacao": 16.7,
+      "chance": 31,
+      "chuva_mm": 0,
+      "uv": 0.8,
+      "rajada": 16,
+      "umidade": 97
+     },
+     {
+      "hora": "08:00",
+      "temp": 17.8,
+      "sensacao": 18.1,
+      "chance": 21,
+      "chuva_mm": 0,
+      "uv": 2.2,
+      "rajada": 19,
+      "umidade": 79
+     },
+     {
+      "hora": "09:00",
+      "temp": 19.8,
+      "sensacao": 19.3,
+      "chance": 14,
+      "chuva_mm": 0,
+      "uv": 3.9,
+      "rajada": 25,
+      "umidade": 61
+     },
+     {
+      "hora": "10:00",
+      "temp": 20.8,
+      "sensacao": 21.1,
+      "chance": 13,
+      "chuva_mm": 0,
+      "uv": 4.7,
+      "rajada": 27,
+      "umidade": 56
+     },
+     {
+      "hora": "11:00",
+      "temp": 21.9,
+      "sensacao": 23.2,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 6.4,
+      "rajada": 27,
+      "umidade": 52
+     },
+     {
+      "hora": "12:00",
+      "temp": 22.6,
+      "sensacao": 23.9,
+      "chance": 18,
+      "chuva_mm": 0,
+      "uv": 8.5,
+      "rajada": 24,
+      "umidade": 49
+     },
+     {
+      "hora": "13:00",
+      "temp": 22.8,
+      "sensacao": 24.2,
+      "chance": 22,
+      "chuva_mm": 0.1,
+      "uv": 8.4,
+      "rajada": 20,
+      "umidade": 48
+     },
+     {
+      "hora": "14:00",
+      "temp": 23.0,
+      "sensacao": 23.5,
+      "chance": 27,
+      "chuva_mm": 0,
+      "uv": 6.3,
+      "rajada": 25,
+      "umidade": 47
+     },
+     {
+      "hora": "15:00",
+      "temp": 22.0,
+      "sensacao": 21.6,
+      "chance": 29,
+      "chuva_mm": 0,
+      "uv": 4.8,
+      "rajada": 31,
+      "umidade": 53
+     },
+     {
+      "hora": "16:00",
+      "temp": 21.0,
+      "sensacao": 19.9,
+      "chance": 28,
+      "chuva_mm": 0.1,
+      "uv": 3.0,
+      "rajada": 30,
+      "umidade": 58
+     },
+     {
+      "hora": "17:00",
+      "temp": 19.6,
+      "sensacao": 18.7,
+      "chance": 24,
+      "chuva_mm": 0.1,
+      "uv": 1.1,
+      "rajada": 32,
+      "umidade": 69
+     },
+     {
+      "hora": "18:00",
+      "temp": 18.4,
+      "sensacao": 17.6,
+      "chance": 20,
+      "chuva_mm": 0,
+      "uv": 0.5,
+      "rajada": 31,
+      "umidade": 73
+     },
+     {
+      "hora": "19:00",
+      "temp": 17.4,
+      "sensacao": 17.3,
+      "chance": 12,
+      "chuva_mm": 0,
+      "uv": 0.1,
+      "rajada": 25,
+      "umidade": 78
+     },
+     {
+      "hora": "20:00",
+      "temp": 17.6,
+      "sensacao": 17.9,
+      "chance": 4,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 13,
+      "umidade": 77
+     },
+     {
+      "hora": "21:00",
+      "temp": 17.4,
+      "sensacao": 17.7,
+      "chance": 2,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 12,
+      "umidade": 78
+     },
+     {
+      "hora": "22:00",
+      "temp": 17.0,
+      "sensacao": 17.0,
+      "chance": 15,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 80
+     },
+     {
+      "hora": "23:00",
+      "temp": 16.5,
+      "sensacao": 16.6,
+      "chance": 35,
+      "chuva_mm": 0,
+      "uv": 0,
+      "rajada": 14,
+      "umidade": 82
+     }
+    ],
+    "uv_alto": [
+     "11:00",
+     "14:00"
+    ],
+    "chuva_pico": {
+     "hora": "06:00",
+     "chance": 39
+    },
+    "guarda_chuva": false,
+    "rajada_max": {
+     "hora": "17:00",
+     "kmh": 32
+    },
+    "amanha": {
+     "condicao": "garoa",
+     "min": 15,
+     "max": 21,
+     "chance_max": 77,
+     "chuva_mm": 0.2
+    }
+   },
+   "ar": {
+    "fonte": "Open-Meteo (CAMS)",
+    "pm25_media": 5.8,
+    "nivel": "boa"
    }
   },
   {
    "tipo": "mare",
-   "fala": "Na Baía da Babitonga, maré alta à 1h21 e às 13h43, pela previsão aproximada.",
+   "manchete": "MARÉ ALTA 13h43",
+   "fala": "Maré alta na Babitonga à 1h21 e às 13h43, previsão aproximada.",
    "dados": {
     "fonte": "Open-Meteo Marine (modelo, aproximado). Oficial: tábua da Marinha, Porto de São Francisco do Sul",
     "unidade": "m em relação ao nível médio do mar",
@@ -173,33 +860,9 @@
    }
   },
   {
-   "tipo": "lista",
-   "alerta": true,
-   "rotulo": "EXEMPLO FICTÍCIO · ALERTA",
-   "titulo": "Exemplo de alerta de alagamento",
-   "itens": [
-    {
-     "texto": "Rua de exemplo",
-     "bairro": "Centro",
-     "detalhe": "exemplo"
-    },
-    {
-     "texto": "Rua de exemplo",
-     "bairro": "Bucarein",
-     "detalhe": "exemplo"
-    },
-    {
-     "texto": "Rua de exemplo",
-     "bairro": "Itaum",
-     "detalhe": "exemplo"
-    }
-   ],
-   "fonte": "exemplo (não publicar)",
-   "fala": "Exemplo de alerta, só para mostrar o mapa: Centro, Bucarein e Itaum."
-  },
-  {
    "tipo": "combustivel",
-   "fala": "Combustível em Joinville: gasolina a R$ 6,02 na média, 4 centavos mais barata que na semana anterior. Etanol a R$ 4,20.",
+   "manchete": "ETANOL COMPENSA",
+   "fala": "Gasolina a R$ 6,02 na média; etanol a R$ 4,20. Etanol custa 69,8% da gasolina: compensa, por pouco.",
    "dados": {
     "semana": [
      "2026-10-11",
@@ -247,8 +910,66 @@
    }
   },
   {
+   "tipo": "postos",
+   "manchete": "R$ 36 NO TANQUE",
+   "fala": "Gasolina mais barata pesquisada: R$ 5,57, no Jardim Paraíso. Mais cara: R$ 6,29, no Iririú. Num tanque de 50 litros, R$ 36 de diferença.",
+   "dados": {
+    "produto": "Gasolina",
+    "mais_barato": {
+     "posto": "Posto Z24 Ltda",
+     "endereco": "Estrada Timbe, 7185",
+     "bairro": "Jardim Paraíso",
+     "preco": 5.57,
+     "coleta": "2026-10-12"
+    },
+    "mais_caro": {
+     "posto": "Posto Monte Moria Ltda",
+     "endereco": "Rua Senador Rodrigo Lobo, 1400",
+     "bairro": "Iririú",
+     "preco": 6.29,
+     "coleta": "2026-10-12"
+    },
+    "pesquisados": 19,
+    "tanque": 50,
+    "semana": [
+     "2026-10-11",
+     "2026-10-17"
+    ]
+   }
+  },
+  {
+   "tipo": "curiosidade",
+   "manchete": "JOINVILLE NA ANTÁRTIDA",
+   "titulo": "Existe uma Ilha Joinville na Antártida",
+   "marcos": [
+    {
+     "ano": "1838",
+     "texto": "A Ilha Joinville é batizada na Antártida"
+    },
+    {
+     "ano": "1851",
+     "texto": "É fundada a Colônia Dona Francisca"
+    }
+   ],
+   "destaque": "Mesmo príncipe francês",
+   "fonte": "Wikipédia (Joinville Island) · NSC Total",
+   "fala": "Curiosidade: existe uma Ilha Joinville na Antártida. Ganhou o nome em 1838, antes da cidade, fundada em 1851. Mesmo príncipe francês nas duas."
+  },
+  {
+   "tipo": "amanha",
+   "manchete": "AMANHÃ 15° → 21°",
+   "fala": "Amanhã: de 15 a 21 graus e 77% de chance de chuva, mas fraca.",
+   "dados": {
+    "condicao": "garoa",
+    "min": 15,
+    "max": 21,
+    "chance_max": 77,
+    "chuva_mm": 0.2
+   }
+  },
+  {
    "tipo": "encerramento",
-   "fala": "Salva e manda pra quem sai cedo de casa. Até amanhã!"
+   "fala": "Salva e manda pra quem sai cedo de casa!"
   }
  ]
 }

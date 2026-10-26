@@ -2,12 +2,12 @@
 // Topo fixo (marca, dia, progresso), o mapa da cidade no meio (a câmera vai até onde está cada informação),
 // um cartão por bloco e a legenda palavra por palavra embaixo.
 import React, {useMemo} from 'react';
-import {AbsoluteFill, Audio, Easing, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {COR, FONTE, MARCA, MONO, PERFIL, SEGURO, LEGENDA_BAIXO} from './estilo';
 import {linhaDoTempo, FPS} from './linha';
 import type {Bloco, Edicao, Palavra} from './tipos';
 import {Mapa, CIDADE_URBANA, CENTRO, LESTE, JANELA_CHEIA, JANELA_TOPO, caixaDosBairros, type Caixa, type Janela, type Pin} from './componentes/Mapa';
-import {CartaoCombustivel, CartaoLista, CartaoMare, CartaoPatrocinio, CartaoTema, CartaoTempo, entrada} from './componentes/Cartoes';
+import {CartaoAmanha, CartaoCombustivel, CartaoCombustivel2, CartaoCuriosidade, CartaoHora, CartaoLista, CartaoMare, CartaoPatrocinio, CartaoPostos, CartaoResumo, CartaoSol, CartaoTema, CartaoTempo, Manchete, SaidaCtx, entrada} from './componentes/Cartoes';
 
 const MUNICIPIO: Caixa = {lon: [-49.05, -48.72], lat: [-26.45, -26.08]};
 const c01 = (x: number) => Math.min(1, Math.max(0, x));
@@ -24,7 +24,17 @@ const camDe = (b: Bloco, anterior: Caixa): {caixa: Caixa; janela: Janela} => {
     case 'abertura':
       return {caixa: CIDADE_URBANA, janela: JANELA_CHEIA};
     case 'tempo':
+    case 'resumo':
+    case 'hora':
       return {caixa: CIDADE_URBANA, janela: JANELA_TOPO};
+    case 'sol':
+      return {caixa: CENTRO, janela: JANELA_TOPO};
+    case 'amanha':
+      return {caixa: CIDADE_URBANA, janela: JANELA_TOPO};
+    case 'postos':
+      return {caixa: caixaDosBairros([b.dados.mais_barato.bairro, b.dados.mais_caro.bairro], 0.02), janela: JANELA_TOPO};
+    case 'curiosidade':
+      return {caixa: MUNICIPIO, janela: JANELA_TOPO};
     case 'mare':
       return {caixa: LESTE, janela: JANELA_TOPO};
     case 'lista': {
@@ -118,6 +128,16 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
   const t = frame / FPS;
   const {palavras, faixas, total} = useMemo(() => linhaDoTempo(edicao), [edicao]);
   const grupos = useMemo(() => blocosLegenda(palavras), [palavras]);
+  // efeitos: whoosh em cada troca de bloco e pop quando a manchete estala
+  const sons = useMemo(() => {
+    const out: {t: number; f: string; v: number}[] = [];
+    faixas.forEach((fx, j) => {
+      if (j) out.push({t: fx.ini - 0.1, f: 'whoosh', v: 0.18});
+      const bl = edicao.blocos[j];
+      if (bl.manchete) out.push({t: quandoNo(palavras, fx, bl.manchete.split(' ')[0], 0.12), f: 'pop', v: 0.22});
+    });
+    return out;
+  }, [faixas, edicao, palavras]);
   const cams = useMemo(() => {
     const out: {caixa: Caixa; janela: Janela}[] = [];
     edicao.blocos.forEach((b, i) => out.push(camDe(b, i ? out[i - 1].caixa : CIDADE_URBANA)));
@@ -128,10 +148,10 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
   const b = edicao.blocos[i];
   const f = faixas[i];
   const de = i ? cams[i - 1] : {caixa: MUNICIPIO, janela: JANELA_CHEIA};
-  const kc = entrada(t, f.ini + 0.15, 0.5); // o cartão entra logo depois da troca
-  const sai = 1 - interpolate(t, [f.fim - 0.25, f.fim], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const kCartao = kc * (i < faixas.length - 1 ? sai : 1);
   const q = (trecho: string, fracao: number) => quandoNo(palavras, f, trecho, fracao);
+  const kCartao = interpolate(t, [f.ini + 0.05, f.ini + 0.55], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.back(1.3))}); // entra deslizando da direita
+  const saida = i < faixas.length - 1 ? interpolate(t, [f.fim - 0.3, f.fim], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.cubic)}) : 0; // e sai para a esquerda
+  const kManchete = b.manchete ? entrada(t, q(b.manchete.split(' ')[0], 0.12), 0.35) : 0;
 
   // conteúdo por tipo de bloco
   let pins: Pin[] = [];
@@ -146,7 +166,7 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
     centro = (
       <div style={{position: 'absolute', left: SEGURO.esq, right: 1080 - SEGURO.botoesX, top: 860, textAlign: 'center', opacity: k, transform: `translateY(${(1 - k) * 30}px)`}}>
         <div style={{fontFamily: FONTE, fontWeight: 900, fontSize: 92, letterSpacing: -3, color: COR.texto, lineHeight: 1}}>Bom dia, Joinville</div>
-        <div style={{fontFamily: MONO, fontSize: 26, letterSpacing: 4, color: COR.acento, marginTop: 16}}>O QUE MUDA NO SEU DIA</div>
+        <div style={{fontFamily: MONO, fontSize: 26, letterSpacing: 4, color: COR.acento, marginTop: 16, opacity: entrada(t, 0.9, 0.5)}}>SEU DIA EM 1 MINUTO</div>
       </div>
     );
   } else if (b.tipo === 'tempo') {
@@ -155,9 +175,36 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
     const chove = d.periodos.some((p) => p.chuva_mm >= 0.5 || p.chance >= 60);
     chuva = chove ? c01(0.3 + d.chuva_mm / 15) : 0;
     cartao = <CartaoTempo d={d} k={kCartao} kPer={d.periodos.map((p, j) => entrada(t, q(p.nome, 0.25 + j * 0.15)))} kRodape={entrada(t, q('UV', 0.7))} />;
+  } else if (b.tipo === 'resumo') {
+    const d = b.dados;
+    const chove = d.periodos.some((p) => p.chuva_mm >= 0.5 || p.chance >= 60);
+    chuva = chove ? c01(0.3 + d.chuva_mm / 15) : 0;
+    cartao = <CartaoResumo d={d} k={kCartao} kNum={entrada(t, q('mínima', 0.2), 0.9)} kSens={entrada(t, q('7h', 0.6))} />;
+  } else if (b.tipo === 'hora') {
+    const d = b.dados;
+    chuva = d.guarda_chuva ? 0.5 : 0;
+    const cursor = interpolate(t, [f.ini + 0.8, f.fim - 0.6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.inOut(Easing.sin)});
+    cartao = <CartaoHora d={d} k={kCartao} kCurva={interpolate(t, [f.ini + 0.3, f.ini + 1.6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} cursor={cursor} kChip={entrada(t, q('Guarda-chuva', 0.7))} />;
+  } else if (b.tipo === 'sol') {
+    cartao = <CartaoSol d={b.dados} ar={b.ar} k={kCartao} kUv={entrada(t, q('UV', 0.15), 1)} kVento={entrada(t, q('rajadas', 0.55))} kAr={entrada(t, q('ar', 0.75))} />;
+  } else if (b.tipo === 'postos') {
+    pins = [
+      {bairro: b.dados.mais_barato.bairro, rotulo: `R$ ${b.dados.mais_barato.preco.toFixed(2).replace('.', ',')}`, k: entrada(t, q(b.dados.mais_barato.bairro, 0.3))},
+      {bairro: b.dados.mais_caro.bairro, rotulo: `R$ ${b.dados.mais_caro.preco.toFixed(2).replace('.', ',')}`, k: entrada(t, q(b.dados.mais_caro.bairro, 0.55))},
+    ];
+    cartao = <CartaoPostos d={b.dados} k={kCartao} kBarato={entrada(t, q(b.dados.mais_barato.bairro, 0.3), 0.8)} kCaro={entrada(t, q(b.dados.mais_caro.bairro, 0.55), 0.8)} kTanque={entrada(t, q('tanque', 0.8))} />;
+  } else if (b.tipo === 'curiosidade') {
+    apagado = 0.75;
+    cartao = <CartaoCuriosidade titulo={b.titulo} marcos={b.marcos} destaque={b.destaque} fonte={b.fonte} k={kCartao} kMarcos={b.marcos.map((m, j) => entrada(t, q(m.ano, 0.3 + j * 0.25), 0.6))} kDestaque={entrada(t, q((b.destaque ?? '').split(' ')[0], 0.85))} />;
+  } else if (b.tipo === 'amanha') {
+    chuva = b.dados.chance_max >= 60 ? 0.45 : 0;
+    cartao = <CartaoAmanha d={b.dados} k={kCartao} kNum={entrada(t, f.ini + 0.4, 0.9)} />;
   } else if (b.tipo === 'mare') {
     rio = entrada(t, f.ini + 0.5, 1);
     cartao = <CartaoMare d={b.dados} k={kCartao} kCurva={interpolate(t, [f.ini + 0.3, f.ini + 2.2], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} kAltas={b.dados.altas.map((a, j) => entrada(t, q(`${Number(a.hora.slice(0, 2))}h${a.hora.slice(3, 5)}`, 0.35 + j * 0.25)))} />;
+  } else if (b.tipo === 'combustivel' && b.dados.itens.some((x) => x.nome === 'Etanol')) {
+    apagado = 0.6;
+    cartao = <CartaoCombustivel2 d={b.dados} k={kCartao} kG={entrada(t, q('Gasolina', 0.15), 0.8)} kE={entrada(t, q('etanol', 0.35), 0.8)} kConta={entrada(t, q('custa', 0.6), 0.9)} />;
   } else if (b.tipo === 'combustivel') {
     apagado = 0.6;
     cartao = <CartaoCombustivel d={b.dados} k={kCartao} kItens={b.dados.itens.map((it, j) => entrada(t, q(it.nome.split(' ')[0], 0.2 + j * 0.15)))} />;
@@ -188,7 +235,8 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
   return (
     <AbsoluteFill style={{background: `linear-gradient(180deg, ${COR.fundoAlto} 0%, ${COR.fundo} 40%)`}}>
       <Mapa t={t} de={de.caixa} para={cams[i].caixa} janelaDe={de.janela} janela={cams[i].janela} ini={f.ini} acesos={acesos} kAcesos={entrada(t, f.ini + 0.4, 0.8)} pins={pins} chuva={chuva} rio={rio} apagado={apagado * kCartao} />
-      {cartao}
+      <SaidaCtx.Provider value={saida}>{cartao}</SaidaCtx.Provider>
+      {b.manchete ? <Manchete texto={b.manchete} k={kManchete} sai={1 - saida} /> : null}
       {centro}
       <Topo t={t} edicao={edicao} faixas={faixas} />
       <Legenda t={t} grupos={grupos} />
@@ -196,6 +244,13 @@ export const Boletim: React.FC<{edicao: Edicao; guia?: boolean}> = ({edicao, gui
       {t > total - 0.5 ? <AbsoluteFill style={{background: '#05070A', opacity: interpolate(t, [total - 0.5, total], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} /> : null}
       {edicao.narracao ? <Audio src={staticFile(`${edicao.pasta ?? edicao.data}/${edicao.narracao}`)} /> : null}
       {edicao.trilha ? <Audio src={staticFile(`${edicao.pasta ?? edicao.data}/${edicao.trilha}`)} loop volume={(fr) => interpolate(fr / FPS, [0, 0.5, total - 1.5, total], [0, 0.1, 0.1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} /> : null}
+      {edicao.sons
+        ? sons.map((x, j) => (
+            <Sequence key={j} from={Math.max(0, Math.round(x.t * FPS))} durationInFrames={Math.round(1.4 * FPS)} layout="none">
+              <Audio src={staticFile(`_sons/${x.f}.wav`)} volume={x.v} />
+            </Sequence>
+          ))
+        : null}
       {guia ? <GuiaReels /> : null}
     </AbsoluteFill>
   );

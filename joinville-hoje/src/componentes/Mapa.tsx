@@ -28,7 +28,7 @@ export const caixaDosBairros = (nomes: string[], folga = 0.012): Caixa => {
 // latitude). Com cartão por cima da parte de baixo, a janela é só a parte de cima: o assunto não fica tapado.
 export type Janela = {y: number; h: number};
 export const JANELA_CHEIA: Janela = {y: AREA.y, h: AREA.h};
-export const JANELA_TOPO: Janela = {y: AREA.y + 10, h: 400};
+export const JANELA_TOPO: Janela = {y: AREA.y + 150, h: 280}; // entre a manchete e o cartão
 const projetor = (c: Caixa, j: Janela) => {
   const lw = (c.lon[1] - c.lon[0]) * KX;
   const lh = c.lat[1] - c.lat[0];
@@ -64,10 +64,16 @@ export const Mapa: React.FC<{
   apagado?: number; // 0..1 esmaece o mapa (quando o cartão é o assunto)
 }> = ({t, de, para, ini, janelaDe = JANELA_CHEIA, janela = JANELA_CHEIA, acesos = [], kAcesos = 1, pins = [], chuva = 0, rio = 0, apagado = 0}) => {
   const k = interpolate(t, [ini, ini + 1.1], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.inOut(Easing.cubic)});
-  // respiração lenta da câmera: o mapa nunca fica parado
-  const resp = 0.012 * Math.sin(t * 0.35);
+  // câmera viva: aproxima e afasta devagar e desliza um pouco (o mapa nunca fica parado)
   const base = mistura(de, para, k);
-  const cam: Caixa = {lon: [base.lon[0] + resp * 0.01, base.lon[1] - resp * 0.01], lat: [base.lat[0] + resp * 0.01, base.lat[1] - resp * 0.01]};
+  const z = 1 - 0.06 * (0.5 + 0.5 * Math.sin(t * 0.32)) - 0.05 * k * (1 - k) * 4; // + um "mergulho" no meio da troca
+  const dx = 0.004 * Math.sin(t * 0.21);
+  const dy = 0.003 * Math.cos(t * 0.17);
+  const cx = (base.lon[0] + base.lon[1]) / 2 + dx;
+  const cy = (base.lat[0] + base.lat[1]) / 2 + dy;
+  const hw = ((base.lon[1] - base.lon[0]) / 2) * z;
+  const hh = ((base.lat[1] - base.lat[0]) / 2) * z;
+  const cam: Caixa = {lon: [cx - hw, cx + hw], lat: [cy - hh, cy + hh]};
   const pj = projetor(cam, {y: janelaDe.y + (janela.y - janelaDe.y) * k, h: janelaDe.h + (janela.h - janelaDe.h) * k});
   const opMapa = 1 - 0.55 * apagado;
   return (

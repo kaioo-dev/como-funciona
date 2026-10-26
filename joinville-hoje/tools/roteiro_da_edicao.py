@@ -64,6 +64,9 @@ def para_voz(texto, trocas):
     v = re.sub(r'\b(\d{1,2})h(\d{2})\b', horas, v)
     v = re.sub(r'\d{1,3}(?:\.\d{3})+(?:,\d+)?%?|\d+(?:,\d+)?%?', numero, v)
     v = re.sub(r'\bUV\b', 'U V', v)  # a sigla é lida letra por letra
+    if 'km/h' in v:
+        v = v.replace('km/h', 'quilômetros por hora')
+        trocas['quilômetros por hora'] = 'km/h'
     return v
 
 
@@ -78,7 +81,7 @@ def main():
         print('PARE: ainda há falas com PREENCHER no edicao.json (complete pela apuração ou apague o bloco).')
         sys.exit(1)
     trocas = {}
-    tom = {'abertura': '[excited]', 'tempo': '[warmly]', 'mare': '[calm]', 'combustivel': '[serious]', 'lista': '[serious]', 'tema': '[curious]', 'patrocinio': '[warmly]', 'encerramento': '[warmly]'}
+    tom = {'abertura': '[excited]', 'resumo': '[warmly]', 'hora': '[warmly]', 'sol': '[serious]', 'postos': '[serious]', 'curiosidade': '[curious]', 'amanha': '[calm]', 'tempo': '[warmly]', 'mare': '[calm]', 'combustivel': '[serious]', 'lista': '[serious]', 'tema': '[curious]', 'patrocinio': '[warmly]', 'encerramento': '[warmly]'}
     tags = [f'{tom.get(b["tipo"], "[calm]")} {para_voz(b["fala"].strip(), trocas)}' for b in edicao['blocos']]
     pasta = arq.parent / 'audio'
     pasta.mkdir(exist_ok=True)

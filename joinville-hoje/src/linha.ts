@@ -5,7 +5,7 @@ import type {Edicao, Palavra} from './tipos';
 
 export const FPS = 30;
 const RITMO = 2.7; // palavras por segundo (narração já acelerada)
-const RESPIRO = 0.35; // pausa entre blocos na estimativa
+const RESPIRO = 0.28; // pausa entre blocos na estimativa
 const FIM = 1.6; // respiro depois da última palavra
 
 const norm = (w: string) =>
@@ -23,7 +23,7 @@ const estimar = (edicao: Edicao): Palavra[] => {
   let t = 0.4;
   for (const b of edicao.blocos) {
     for (const w of b.fala.split(/\s+/).filter(Boolean)) {
-      const d = Math.max(0.18, Math.min(0.7, (w.length / 6) * (1 / RITMO) * 1.6));
+      const d = Math.max(0.17, Math.min(0.62, (w.length / 6) * (1 / RITMO) * 1.38));
       out.push({w, s: t, e: t + d * 0.92});
       t += d;
     }

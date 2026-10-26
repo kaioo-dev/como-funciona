@@ -1,8 +1,9 @@
 {
  "data": "2026-10-26",
- "coletado_em": "2026-10-25T23:25-03:00",
+ "coletado_em": "2026-10-25T23:45-03:00",
  "tempo": {
   "fonte": "Open-Meteo",
+  "condicao": "sol entre nuvens",
   "min": 15,
   "max": 23,
   "chuva_mm": 1.4,
@@ -29,7 +30,214 @@
     "chance": 35,
     "temp": 17
    }
-  ]
+  ],
+  "horas": [
+   {
+    "hora": "06:00",
+    "temp": 14.8,
+    "sensacao": 15.5,
+    "chance": 39,
+    "chuva_mm": 0,
+    "uv": 0.1,
+    "rajada": 11,
+    "umidade": 99
+   },
+   {
+    "hora": "07:00",
+    "temp": 15.9,
+    "sensacao": 16.7,
+    "chance": 31,
+    "chuva_mm": 0,
+    "uv": 0.8,
+    "rajada": 16,
+    "umidade": 97
+   },
+   {
+    "hora": "08:00",
+    "temp": 17.8,
+    "sensacao": 18.1,
+    "chance": 21,
+    "chuva_mm": 0,
+    "uv": 2.2,
+    "rajada": 19,
+    "umidade": 79
+   },
+   {
+    "hora": "09:00",
+    "temp": 19.8,
+    "sensacao": 19.3,
+    "chance": 14,
+    "chuva_mm": 0,
+    "uv": 3.9,
+    "rajada": 25,
+    "umidade": 61
+   },
+   {
+    "hora": "10:00",
+    "temp": 20.8,
+    "sensacao": 21.1,
+    "chance": 13,
+    "chuva_mm": 0,
+    "uv": 4.7,
+    "rajada": 27,
+    "umidade": 56
+   },
+   {
+    "hora": "11:00",
+    "temp": 21.9,
+    "sensacao": 23.2,
+    "chance": 15,
+    "chuva_mm": 0,
+    "uv": 6.4,
+    "rajada": 27,
+    "umidade": 52
+   },
+   {
+    "hora": "12:00",
+    "temp": 22.6,
+    "sensacao": 23.9,
+    "chance": 18,
+    "chuva_mm": 0,
+    "uv": 8.5,
+    "rajada": 24,
+    "umidade": 49
+   },
+   {
+    "hora": "13:00",
+    "temp": 22.8,
+    "sensacao": 24.2,
+    "chance": 22,
+    "chuva_mm": 0.1,
+    "uv": 8.4,
+    "rajada": 20,
+    "umidade": 48
+   },
+   {
+    "hora": "14:00",
+    "temp": 23.0,
+    "sensacao": 23.5,
+    "chance": 27,
+    "chuva_mm": 0,
+    "uv": 6.3,
+    "rajada": 25,
+    "umidade": 47
+   },
+   {
+    "hora": "15:00",
+    "temp": 22.0,
+    "sensacao": 21.6,
+    "chance": 29,
+    "chuva_mm": 0,
+    "uv": 4.8,
+    "rajada": 31,
+    "umidade": 53
+   },
+   {
+    "hora": "16:00",
+    "temp": 21.0,
+    "sensacao": 19.9,
+    "chance": 28,
+    "chuva_mm": 0.1,
+    "uv": 3.0,
+    "rajada": 30,
+    "umidade": 58
+   },
+   {
+    "hora": "17:00",
+    "temp": 19.6,
+    "sensacao": 18.7,
+    "chance": 24,
+    "chuva_mm": 0.1,
+    "uv": 1.1,
+    "rajada": 32,
+    "umidade": 69
+   },
+   {
+    "hora": "18:00",
+    "temp": 18.4,
+    "sensacao": 17.6,
+    "chance": 20,
+    "chuva_mm": 0,
+    "uv": 0.5,
+    "rajada": 31,
+    "umidade": 73
+   },
+   {
+    "hora": "19:00",
+    "temp": 17.4,
+    "sensacao": 17.3,
+    "chance": 12,
+    "chuva_mm": 0,
+    "uv": 0.1,
+    "rajada": 25,
+    "umidade": 78
+   },
+   {
+    "hora": "20:00",
+    "temp": 17.6,
+    "sensacao": 17.9,
+    "chance": 4,
+    "chuva_mm": 0,
+    "uv": 0,
+    "rajada": 13,
+    "umidade": 77
+   },
+   {
+    "hora": "21:00",
+    "temp": 17.4,
+    "sensacao": 17.7,
+    "chance": 2,
+    "chuva_mm": 0,
+    "uv": 0,
+    "rajada": 12,
+    "umidade": 78
+   },
+   {
+    "hora": "22:00",
+    "temp": 17.0,
+    "sensacao": 17.0,
+    "chance": 15,
+    "chuva_mm": 0,
+    "uv": 0,
+    "rajada": 14,
+    "umidade": 80
+   },
+   {
+    "hora": "23:00",
+    "temp": 16.5,
+    "sensacao": 16.6,
+    "chance": 35,
+    "chuva_mm": 0,
+    "uv": 0,
+    "rajada": 14,
+    "umidade": 82
+   }
+  ],
+  "uv_alto": [
+   "11:00",
+   "14:00"
+  ],
+  "chuva_pico": {
+   "hora": "06:00",
+   "chance": 39
+  },
+  "guarda_chuva": false,
+  "rajada_max": {
+   "hora": "17:00",
+   "kmh": 32
+  },
+  "amanha": {
+   "condicao": "garoa",
+   "min": 15,
+   "max": 21,
+   "chance_max": 77,
+   "chuva_mm": 0.2
+  }
+ },
+ "ar": {
+  "fonte": "Open-Meteo (CAMS)",
+  "pm25_media": 5.8,
+  "nivel": "boa"
  },
  "mare": {
   "fonte": "Open-Meteo Marine (modelo, aproximado). Oficial: tábua da Marinha, Porto de São Francisco do Sul",
@@ -197,6 +405,42 @@
     "variacao": 0.0
    }
   ],
+  "postos": {
+   "Gasolina": {
+    "mais_barato": {
+     "posto": "Posto Z24 Ltda",
+     "endereco": "Estrada Timbe, 7185",
+     "bairro": "Jardim Paraíso",
+     "preco": 5.57,
+     "coleta": "2026-10-12"
+    },
+    "mais_caro": {
+     "posto": "Posto Monte Moria Ltda",
+     "endereco": "Rua Senador Rodrigo Lobo, 1400",
+     "bairro": "Iririú",
+     "preco": 6.29,
+     "coleta": "2026-10-12"
+    },
+    "pesquisados": 19
+   },
+   "Etanol": {
+    "mais_barato": {
+     "posto": "Posto Z24 Ltda",
+     "endereco": "Estrada Timbe, 7185",
+     "bairro": "Jardim Paraíso",
+     "preco": 3.88,
+     "coleta": "2026-10-12"
+    },
+    "mais_caro": {
+     "posto": "Auto Posto Estrela Prateada Comercio De Combustiveis Ltda",
+     "endereco": "Rua Petropolis, 772",
+     "bairro": "Petrópolis",
+     "preco": 4.49,
+     "coleta": "2026-10-12"
+    },
+    "pesquisados": 15
+   }
+  },
   "arquivo": "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/arquivos-lpc/2026/resumo_semanal_lpc_2026_10_11-2026_10_17.xlsx"
  }
 }

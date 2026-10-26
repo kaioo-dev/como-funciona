@@ -2,11 +2,14 @@
 Uso: python3 tools/coletar.py [AAAA-MM-DD]      (sem data = hoje, no horário de Brasília)
 
 Fontes (todas públicas e gratuitas, sem chave):
-  - Tempo: Open-Meteo (modelos de previsão) — chuva por período, temperatura, índice UV, nascer e pôr do sol.
+  - Tempo: Open-Meteo (modelos de previsão) — hora a hora (temperatura, sensação, chance de chuva, UV, rajadas),
+    resumo do dia, guarda-chuva sim/não, horário de UV alto e a previsão de amanhã.
+  - Qualidade do ar: Open-Meteo Air Quality (CAMS) — média de PM2,5 do dia, nas faixas da OMS.
   - Maré: Open-Meteo Marine (modelo, perto da entrada da Baía da Babitonga). É APROXIMADA: a referência oficial é a
     tábua de marés da Marinha (DHN) para o Porto de São Francisco do Sul. O vídeo sempre diz "previsão aproximada".
   - Combustíveis: ANP, Levantamento de Preços (resumo semanal por município) — preço médio em Joinville e a variação
-    sobre a semana anterior. Precisa do pacote openpyxl (python3 -m pip install openpyxl).
+    sobre a semana anterior, e o posto mais barato e o mais caro pesquisados (arquivo de revendas da mesma semana).
+    Precisa do pacote openpyxl (python3 -m pip install openpyxl).
 Cada fonte que falhar vira "erro" no arquivo; o boletim simplesmente não mostra aquele bloco.
 """
 import datetime as dt, io, json, pathlib, re, sys, time, urllib.request
@@ -31,25 +34,70 @@ def baixar(url, binario=False, timeout=40, tentativas=4):
             time.sleep(2 ** (n + 1))
 
 
+# código de tempo da OMM (weather_code) → texto curto
+def condicao(cod):
+    if cod is None:
+        return 'tempo variável'
+    if cod == 0:
+        return 'céu limpo'
+    if cod in (1, 2):
+        return 'sol entre nuvens'
+    if cod == 3:
+        return 'nublado'
+    if cod in (45, 48):
+        return 'neblina'
+    if 51 <= cod <= 57:
+        return 'garoa'
+    if 61 <= cod <= 67 or 80 <= cod <= 82:
+        return 'chuva'
+    if cod >= 95:
+        return 'temporal'
+    return 'tempo variável'
+
+
 def tempo(dia):
+    amanha = (dt.date.fromisoformat(dia) + dt.timedelta(days=1)).isoformat()
     url = (
         f'https://api.open-meteo.com/v1/forecast?latitude={JOINVILLE[0]}&longitude={JOINVILLE[1]}'
-        '&hourly=precipitation,precipitation_probability,temperature_2m,uv_index'
-        '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,uv_index_max,sunrise,sunset'
-        f'&timezone=America%2FSao_Paulo&start_date={dia}&end_date={dia}'
+        '&hourly=precipitation,precipitation_probability,temperature_2m,apparent_temperature,uv_index,wind_gusts_10m,relative_humidity_2m,weather_code'
+        '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,uv_index_max,sunrise,sunset,weather_code'
+        f'&timezone=America%2FSao_Paulo&start_date={dia}&end_date={amanha}'
     )
     d = json.loads(baixar(url))
     h = d['hourly']
+    hoje = [i for i, t in enumerate(h['time']) if t.startswith(dia)]
     periodos = []
     for nome, a, b in (('MANHÃ', 6, 12), ('TARDE', 12, 18), ('NOITE', 18, 24)):
-        idx = [i for i, t in enumerate(h['time']) if a <= int(t[11:13]) < b]
+        idx = [i for i in hoje if a <= int(h['time'][i][11:13]) < b]
         chuva = round(sum(h['precipitation'][i] or 0 for i in idx), 1)
         prob = max((h['precipitation_probability'][i] or 0) for i in idx)
         temp = round(sum(h['temperature_2m'][i] for i in idx) / len(idx))
         periodos.append({'nome': nome, 'chuva_mm': chuva, 'chance': prob, 'temp': temp})
+    # hora a hora, das 6h às 23h (o que interessa para quem vai sair de casa)
+    horas = [
+        {
+            'hora': h['time'][i][11:16],
+            'temp': round(h['temperature_2m'][i], 1),
+            'sensacao': round(h['apparent_temperature'][i], 1),
+            'chance': h['precipitation_probability'][i] or 0,
+            'chuva_mm': h['precipitation'][i] or 0,
+            'uv': round(h['uv_index'][i] or 0, 1),
+            'rajada': round(h['wind_gusts_10m'][i] or 0),
+            'umidade': h['relative_humidity_2m'][i],
+        }
+        for i in hoje
+        if 6 <= int(h['time'][i][11:13]) <= 23
+    ]
+    uv_alto = [x['hora'] for x in horas if x['uv'] >= 6]
+    chuva_dia = max(horas, key=lambda x: x['chance'])
+    rajada = max(horas, key=lambda x: x['rajada'])
     dd = d['daily']
+    # condição do dia = a mais comum entre 7h e 19h (o código diário pega o pior momento e exagera)
+    dia_claro = [condicao(h['weather_code'][i]) for i in hoje if 7 <= int(h['time'][i][11:13]) <= 19]
+    dominante = max(set(dia_claro), key=dia_claro.count) if dia_claro else condicao(dd['weather_code'][0])
     return {
         'fonte': 'Open-Meteo',
+        'condicao': dominante,
         'min': round(dd['temperature_2m_min'][0]),
         'max': round(dd['temperature_2m_max'][0]),
         'chuva_mm': round(dd['precipitation_sum'][0], 1),
@@ -58,7 +106,32 @@ def tempo(dia):
         'nascer': dd['sunrise'][0][11:16],
         'por': dd['sunset'][0][11:16],
         'periodos': periodos,
+        'horas': horas,
+        'uv_alto': [uv_alto[0], uv_alto[-1]] if uv_alto else None,  # das X às Y (índice >= 6)
+        'chuva_pico': {'hora': chuva_dia['hora'], 'chance': chuva_dia['chance']},
+        'guarda_chuva': chuva_dia['chance'] >= 40 or sum(x['chuva_mm'] for x in horas) >= 0.5,
+        'rajada_max': {'hora': rajada['hora'], 'kmh': rajada['rajada']},
+        'amanha': {
+            'condicao': condicao(dd['weather_code'][1]),
+            'min': round(dd['temperature_2m_min'][1]),
+            'max': round(dd['temperature_2m_max'][1]),
+            'chance_max': dd['precipitation_probability_max'][1],
+            'chuva_mm': round(dd['precipitation_sum'][1], 1),
+        },
     }
+
+
+def ar(dia):
+    url = (
+        f'https://air-quality-api.open-meteo.com/v1/air-quality?latitude={JOINVILLE[0]}&longitude={JOINVILLE[1]}'
+        f'&hourly=pm2_5&timezone=America%2FSao_Paulo&start_date={dia}&end_date={dia}'
+    )
+    d = json.loads(baixar(url))
+    vals = [v for v in d['hourly']['pm2_5'] if v is not None]
+    media = round(sum(vals) / len(vals), 1)
+    # faixas da OMS (2021) para a média de 24 h de PM2,5
+    nivel = 'boa' if media <= 15 else 'moderada' if media <= 35 else 'ruim'
+    return {'fonte': 'Open-Meteo (CAMS)', 'pm25_media': media, 'nivel': nivel}
 
 
 def mare(dia):
@@ -92,6 +165,18 @@ def mare(dia):
     }
 
 
+def nome_bairro(bruto):
+    """'JARDIM PARAISO' (ANP) → 'Jardim Paraíso' (nome do mapa), para o pin cair no bairro certo."""
+    import unicodedata
+
+    n = lambda x: ''.join(c for c in unicodedata.normalize('NFD', x.lower()) if unicodedata.category(c) != 'Mn').strip()
+    try:
+        nomes = [f['properties']['nome'] for f in json.loads((RAIZ / 'mapa' / 'bairros.geojson').read_text(encoding='utf-8'))['features']]
+    except Exception:
+        return bruto.title()
+    return next((x for x in nomes if n(x) == n(bruto)), bruto.title())
+
+
 def combustiveis():
     import openpyxl  # noqa: só aqui (as outras fontes funcionam sem ele)
 
@@ -123,7 +208,19 @@ def combustiveis():
             a = atual[nome]
             var = round(a['medio'] - anterior[nome]['medio'], 2) if nome in anterior else None
             itens.append({'nome': rotulo, 'medio': a['medio'], 'min': a['min'], 'max': a['max'], 'postos': a['postos'], 'unidade': a['unidade'], 'variacao': var})
-    return {'fonte': 'ANP — Levantamento de Preços de Combustíveis', 'semana': periodo, 'itens': itens, 'arquivo': links[0]}
+    postos = {}
+    rev = links[0].replace('resumo_semanal_lpc', 'revendas_lpc')
+    try:
+        wb = openpyxl.load_workbook(io.BytesIO(baixar(rev, binario=True, timeout=120)), read_only=True, data_only=True)
+        linhas = [r for r in wb.worksheets[0].iter_rows(values_only=True) if r and len(r) > 14 and r[8] == 'JOINVILLE' and isinstance(r[13], (int, float))]
+        for prod, rotulo in (('GASOLINA COMUM', 'Gasolina'), ('ETANOL', 'Etanol')):
+            ps = sorted([r for r in linhas if r[11] == prod], key=lambda r: r[13])
+            if ps:
+                f = lambda r: {'posto': (r[2] or r[1]).title(), 'endereco': f'{str(r[3]).title()}, {r[4]}', 'bairro': nome_bairro(str(r[6])), 'preco': float(r[13]), 'coleta': r[14].date().isoformat()}
+                postos[rotulo] = {'mais_barato': f(ps[0]), 'mais_caro': f(ps[-1]), 'pesquisados': len(ps)}
+    except Exception as e:
+        postos = {'erro': str(e)}
+    return {'fonte': 'ANP — Levantamento de Preços de Combustíveis', 'semana': periodo, 'itens': itens, 'postos': postos, 'arquivo': links[0]}
 
 
 def main():
@@ -131,7 +228,7 @@ def main():
     pasta = RAIZ / 'projetos' / dia
     pasta.mkdir(parents=True, exist_ok=True)
     saida = {'data': dia, 'coletado_em': dt.datetime.now(FUSO).isoformat(timespec='minutes')}
-    for nome, f in (('tempo', lambda: tempo(dia)), ('mare', lambda: mare(dia)), ('combustiveis', combustiveis)):
+    for nome, f in (('tempo', lambda: tempo(dia)), ('ar', lambda: ar(dia)), ('mare', lambda: mare(dia)), ('combustiveis', combustiveis)):
         try:
             saida[nome] = f()
             print(f'ok   {nome}')

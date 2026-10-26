@@ -12,7 +12,13 @@ python3 tools/coletar.py 2026-10-26          # tempo, maré e combustível → p
 python3 tools/nova_edicao.py 2026-10-26      # rascunho → projetos/2026-10-26/edicao.json
 ```
 - Fonte que falhou: o coletor grava `erro` e o bloco não entra. Diga qual e siga.
-- `--combustivel` no `nova_edicao.py` põe o combustível em qualquer dia (o padrão é só às terças).
+- O rascunho já traz os blocos automáticos, cada um com a sua `manchete` (texto grande que estala no topo):
+  resumo do dia, hora a hora (guarda-chuva sim/não), sol/vento/ar, maré, combustível ("etanol compensa?"), posto mais
+  barato e mais caro (pins no mapa), a curiosidade do dia (`curiosidades.json`), amanhã e encerramento.
+- `--manuais` acrescenta os blocos de apuração (alerta, falta de luz/água, farmácia de plantão) com PREENCHER.
+- Curiosidade: só fatos conferidos em `curiosidades.json` (campo `conferido` com as fontes). Depois de publicar,
+  acrescente o `id` em `curiosidades-usadas.txt` para não repetir. Ao criar curiosidades novas, pesquise e confira
+  2 fontes antes de colocar no arquivo.
 
 ## 2. Completar os blocos manuais
 
@@ -31,7 +37,7 @@ Regras da `fala` de cada bloco:
 - A fala começa diferente de todas as outras (as 3 primeiras palavras localizam o bloco na narração).
 - Para cada item aparecer na hora certa, cite na fala o `bairro` (lista), o período `manhã/tarde/noite` (tempo),
   a hora exata da maré (`13h43`) e o nome do combustível.
-- Boletim bom: 45–60 s (≈ 750–1.000 caracteres no total). `tools/roteiro_da_edicao.py` avisa se passar.
+- Boletim bom: ~60 s (≈ 150 palavras no total). `tools/roteiro_da_edicao.py` avisa se passar.
 
 Mostre as falas em tópicos e **espere a aprovação**.
 

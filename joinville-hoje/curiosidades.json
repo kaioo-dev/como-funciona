@@ -1,0 +1,15 @@
+[
+  {
+    "id": "ilha-antartida",
+    "manchete": "JOINVILLE NA ANTÁRTIDA",
+    "titulo": "Existe uma Ilha Joinville na Antártida",
+    "marcos": [
+      {"ano": "1838", "texto": "A Ilha Joinville é batizada na Antártida"},
+      {"ano": "1851", "texto": "É fundada a Colônia Dona Francisca"}
+    ],
+    "destaque": "Mesmo príncipe francês",
+    "fala": "Curiosidade: existe uma Ilha Joinville na Antártida. Ganhou o nome em 1838, antes da cidade, fundada em 1851. Mesmo príncipe francês nas duas.",
+    "fonte": "Wikipédia (Joinville Island) · NSC Total",
+    "conferido": "Ilha batizada em 1838 pela expedição de Dumont d'Urville em homenagem a François d'Orléans, Príncipe de Joinville (Wikipédia). Colônia Dona Francisca fundada em 9/3/1851 nas terras do dote da princesa Francisca, casada com o mesmo príncipe (NSC Total, IRIB)."
+  }
+]
