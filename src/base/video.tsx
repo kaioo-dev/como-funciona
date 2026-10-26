@@ -5,7 +5,7 @@ import React, {useEffect, useLayoutEffect, useMemo} from 'react';
 import {useThree} from '@react-three/fiber';
 import * as THREE from 'three';
 import {ThreeCanvas} from '@remotion/three';
-import {AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Easing, getInputProps, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {AcabamentoCinema, Camera, Palco, type Cam, type Foco, type V3} from './pecas';
 import {QaCena, QA_LIGADO, qaLog} from './qa';
 import {focoAuto, W, H} from './camera';
@@ -94,6 +94,16 @@ const Liberar: React.FC = () => {
   return null;
 };
 
+// Resolução do 3D (padrão 1). PROPS='{"dpr":0.6667}' desenha a cena em 720p: use junto com o render em escala 0,6667
+// (computador sem placa de vídeo, onde o 1080p fica lento demais).
+const DPR = (() => {
+  try {
+    return Number((getInputProps() as {dpr?: number}).dpr) || 1;
+  } catch {
+    return 1;
+  }
+})();
+
 // ---------- O palco de cinema de toda cena ----------
 // cam: de camera()/sobreOmbro() (src/base/camera). foco: padrão = no centro dos alvos da câmera, raso.
 // frente: bolas de bokeh na frente da lente (0 desliga). poeira: grãos atrás do assunto (false desliga).
@@ -108,7 +118,7 @@ export const CanvasCinema: React.FC<{cam: Cam; foco?: Foco; t?: number; children
   palco = true,
 }) => (
   // na checagem automática: ¼ da resolução e sem sombra (a imagem só serve para medir pisca; o vídeo final não muda)
-  <ThreeCanvas width={W} height={H} shadows={QA_LIGADO ? false : 'soft'} dpr={QA_LIGADO ? 0.25 : 1} gl={{antialias: false, toneMapping: THREE.NoToneMapping}} camera={{fov: cam.fov, position: cam.pos}}>
+  <ThreeCanvas width={W} height={H} shadows={QA_LIGADO ? false : 'soft'} dpr={QA_LIGADO ? 0.25 : DPR} gl={{antialias: false, toneMapping: THREE.NoToneMapping}} camera={{fov: cam.fov, position: cam.pos}}>
     {palco ? <Palco tema={TEMA} alcance={Math.max(60, Math.hypot(cam.pos[0], cam.pos[1], cam.pos[2]) * 3)} sombraArea={sombraArea} /> : null}
     <Camera {...cam} />
     {children}
